@@ -1,13 +1,12 @@
 import { initializeApp } from "firebase/app";
-
 import {
   getAuth,
   signInWithRedirect,
   signInWithPopup,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
-
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -17,7 +16,7 @@ const firebaseConfig = {
   storageBucket: "mesh-clothing-db.appspot.com",
   messagingSenderId: "834932834855",
   appId: "1:834932834855:web:547327484e3651842f0402",
-};
+};;
 
 const firebaseApp = initializeApp(firebaseConfig);
 
@@ -30,8 +29,8 @@ googleProvider.setCustomParameters({
 export const auth = getAuth();
 export const signInWithGooglePopup = () =>
   signInWithPopup(auth, googleProvider);
-// export const signInWithGoogleRedirect = () =>
-//   signInWithRedirect(auth, googleProvider);
+export const signInWithGoogleRedirect = () =>
+  signInWithRedirect(auth, googleProvider);
 
 export const db = getFirestore();
 
@@ -64,7 +63,14 @@ export const createUserDocumentFromAuth = async (
   return userDocRef;
 };
 
-export const createUserAuthWithEmailAndPassword = async (email, password) => {
-  if (!email || !password)return;
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return;
+
   return await createUserWithEmailAndPassword(auth, email, password);
+};
+
+export const signInAuthUserWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return;
+
+  return await signInWithEmailAndPassword(auth, email, password);
 };
