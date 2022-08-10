@@ -6,6 +6,7 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
@@ -16,7 +17,7 @@ const firebaseConfig = {
   storageBucket: "mesh-clothing-db.appspot.com",
   messagingSenderId: "834932834855",
   appId: "1:834932834855:web:547327484e3651842f0402",
-};;
+};
 
 const firebaseApp = initializeApp(firebaseConfig);
 
@@ -74,3 +75,4 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 
   return await signInWithEmailAndPassword(auth, email, password);
 };
+export const signOutUser = () => signOut(auth);
